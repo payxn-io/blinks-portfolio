@@ -24,4 +24,4 @@ npm run dev
 
 - [x] Memo: A note that accompanies the payment transaction, but it shouldn’t contain any private or sensitive information since it’s recorded on-chain.
 
-- [x] These fields ensure you have full control over your transaction, facilitating smooth interaction between your wallet and the recipient. For security, apps should only consider the transaction complete after it’s confirmed on-chain.
+These fields ensure you have full control over your transaction, facilitating smooth interaction between your wallet and the recipient. For security, apps should only consider the transaction complete after it’s confirmed on-chain.
