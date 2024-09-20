@@ -25,7 +25,7 @@ export default function Home() {
   const [recipient, setRecipient] = useState(
     new PublicKey("Ckg9D8BZmeze7Ka19fYJG3pyFGiAgiYSnQGToNbdRz8r"));
   const [amount, setAmount] = useState(new BigNumber(1));
-  const [message, setMessage] = useState("Payxn Demo Order");
+  const [message] = useState("Payxn Demo Order");
   const reference = new Keypair().publicKey;
   const label = "Payxn Super Store";
   const memo = "Payxn#1337";
@@ -65,7 +65,7 @@ export default function Home() {
                 console.log('\n Signature: ', signatureInfo.signature,signatureInfo);
                 clearInterval(interval);
                 resolve(signatureInfo);
-            } catch (error: any) {
+            } catch (error: unknown) {
                 if (!(error instanceof FindReferenceError)) {
                     console.error(error);
                     clearInterval(interval);
