@@ -1,40 +1,27 @@
 This is a Solana QR and NFC Tap example app.
 
-## Getting Started
+### Getting Started
 
-First, run the development server:
+First, clone repo & run the development server:
 
 ```bash
+git clone https://github.com/payxn-io/sol-pay-app.git
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Parameters
+- [x] Recipient: This is the public key of the person you're sending SOL to. For SPL token transfers, specify the token type in the spl-token field, so the wallet can determine the correct account for the transfer.<br><br>
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- [x] Amount: The number of SOL or tokens you're sending. If it's less than 1, make sure to include a 0 before the decimal. If the amount is missing, the wallet will prompt you to enter it. When transferring SOL, this value reflects SOL, not lamports.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- [x] SPL Token: An optional field that represents the mint address of a specific SPL Token account. If left out, the transaction will default to a regular SOL transfer.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- [x] Reference: A unique identifier within the transaction, used to locate specific transactions and verify results.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- [x] Label: A brief description of the transfer’s origin, such as a store or an app, displayed by the wallet to inform the user.
 
-## Learn More
+- [x] Message: An encoded URL containing details on the reason for the transfer, such as an order ID or a note. Wallets use this to provide context to the user.
 
-To learn more about Next.js, take a look at the following resources:
+- [x] Memo: A note that accompanies the payment transaction, but it shouldn’t contain any private or sensitive information since it’s recorded on-chain.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [x] These fields ensure you have full control over your transaction, facilitating smooth interaction between your wallet and the recipient. For security, apps should only consider the transaction complete after it’s confirmed on-chain.
