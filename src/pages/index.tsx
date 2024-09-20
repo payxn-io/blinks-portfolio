@@ -91,6 +91,43 @@ export default function Home() {
       <h1 className="mb-6 text-3xl font-bold text-indigo-700">
         Payxn Solana Pay Demo
       </h1>
+      <div className="w-full max-w-md p-6 mx-auto bg-white rounded-xl shadow-md">
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Address:
+          </label>
+          <input
+            type="text"
+            onChange={(e) => setAddress(e.target.value)}
+            className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Amount:
+          </label>
+          <input
+            type="number"
+            onChange={(e) => setAmount(new BigNumber(e.target.value))}
+            className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div className="flex justify-center items-center">
+        <button 
+          className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700" 
+          onClick={createPayment}
+        >
+          Create QR Code
+        </button>
+        </div>
+        
+        <div>
+        {paymentStatus === 'validated' ? <p className="mt-4 text-green-500 text-center">Payment Validated</p> : <div className="flex justify-center mt-4">
+          {qrCodeValue && }
+        </div>}
+      </div>
+      </div>
+
     </div>
   );
 }
