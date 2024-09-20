@@ -56,7 +56,8 @@ export default function Home() {
     console.log('Searching for the payment\n');
     let signatureInfo;
 
-    const {signature} = await new Promise((resolve, reject) => {
+    // const {signature} = await new Promise((resolve, reject) => {
+    const { signature } = await new Promise<{ signature: string }>((resolve, reject) => {  
       
         const interval = setInterval(async () => {
             console.count('Checking for transaction...'+reference);
