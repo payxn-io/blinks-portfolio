@@ -9,6 +9,10 @@ import QRCode from "react-qr-code";
 // Configure your RPC connection
 const RPC="https://rpc.helius.xyz/?api-key<Helius_API>"!
 
+// Create a Solana Connection object with your RPC URL
+console.log('Connecting to the Solana network\n');
+const connection = new Connection(RPC, 'confirmed');
+
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
