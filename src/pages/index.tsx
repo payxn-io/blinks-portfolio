@@ -4,10 +4,15 @@ import { encodeURL, createQR,findReference, FindReferenceError, validateTransfer
 import BigNumber from "bignumber.js";
 import { useState } from "react";
 import QRCode from "react-qr-code";
+require('dotenv').config();
 
 
 // Configure your RPC connection
-const RPC="https://rpc.helius.xyz/?api-key<Helius_API>"!
+// const RPC="https://rpc.helius.xyz/?api-key=".process.env.HELIUS_RPC!
+
+const RPC="https://rpc.helius.xyz/?api-key=82d90b23-dc14-48a7-ac17-3c95ace2130b"!
+//const RPC = `https://rpc.helius.xyz/?api-key=${process.env.HELIUS_RPC}`;
+console.log(RPC); // This will output the complete RPC URL
 
 // Create a Solana Connection object with your RPC URL
 console.log('Connecting to the Solana network\n');
@@ -68,13 +73,16 @@ export default function Home() {
             }
         }, 250);
     });
-	
-		// Validate transaction
+
+    // Update payment status
+    setPaymentStatus('confirmed');
+
+    //validate transaction
     console.log('Validating the payment\n');
     try {
       await validateTransfer(connection, signature, { recipient: recipient, amount });
 
-    // Update payment status
+      // Update payment status
       setPaymentStatus('validated');
       console.log('Payment validated');
       return true;
@@ -83,7 +91,7 @@ export default function Home() {
       console.error('Payment failed', error);
       return false;
   }
-}
+  }
 
 
   return (
@@ -123,7 +131,7 @@ export default function Home() {
         
         <div>
         {paymentStatus === 'validated' ? <p className="mt-4 text-green-500 text-center">Payment Validated</p> : <div className="flex justify-center mt-4">
-          {qrCodeValue && }
+          {qrCodeValue && <QRCode value={qrCodeValue} />}
         </div>}
       </div>
       </div>
