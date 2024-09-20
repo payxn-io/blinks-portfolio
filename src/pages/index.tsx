@@ -69,7 +69,20 @@ export default function Home() {
         }, 250);
     });
 	
+		// Validate transaction
+    console.log('Validating the payment\n');
+    try {
+      await validateTransfer(connection, signature, { recipient: recipient, amount });
 
+    // Update payment status
+      setPaymentStatus('validated');
+      console.log('Payment validated');
+      return true;
+      
+  } catch (error) {
+      console.error('Payment failed', error);
+      return false;
+  }
 }
 
 
