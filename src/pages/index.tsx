@@ -1,9 +1,13 @@
-// imports
+// Imports
 import {Cluster,clusterApiUrl,Connection,PublicKey,Keypair} from "@solana/web3.js";
 import { encodeURL, createQR,findReference, FindReferenceError, validateTransfer } from "@solana/pay";
 import BigNumber from "bignumber.js";
 import { useState } from "react";
 import QRCode from "react-qr-code";
+
+
+// Configure your RPC connection
+const RPC="https://rpc.helius.xyz/?api-key="!
 
 export default function Home() {
   return (
