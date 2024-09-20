@@ -7,7 +7,7 @@ import QRCode from "react-qr-code";
 
 
 // Configure your RPC connection
-const RPC="https://rpc.helius.xyz/?api-key="!
+const RPC="https://rpc.helius.xyz/?api-key<Helius_API>"!
 
 export default function Home() {
   return (
