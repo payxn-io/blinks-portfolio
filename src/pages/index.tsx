@@ -124,7 +124,7 @@ export default function Home() {
         </div>
         <div className="flex justify-center items-center">
         <button 
-          className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700" 
+          className="px-4 py-2 font-bold text-white bg-indigo-500 rounded hover:bg-blue-700" 
           onClick={createPayment}
         >
           Create QR Code
