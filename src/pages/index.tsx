@@ -1,5 +1,6 @@
 // imports
 import {Cluster,clusterApiUrl,Connection,PublicKey,Keypair} from "@solana/web3.js";
+import { encodeURL, createQR,findReference, FindReferenceError, validateTransfer } from "@solana/pay";
 
 export default function Home() {
   return (
