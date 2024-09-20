@@ -3,6 +3,7 @@ import {Cluster,clusterApiUrl,Connection,PublicKey,Keypair} from "@solana/web3.j
 import { encodeURL, createQR,findReference, FindReferenceError, validateTransfer } from "@solana/pay";
 import BigNumber from "bignumber.js";
 import { useState } from "react";
+import QRCode from "react-qr-code";
 
 export default function Home() {
   return (
