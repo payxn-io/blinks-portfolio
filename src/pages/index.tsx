@@ -1,10 +1,11 @@
 // Imports
-import {Cluster,clusterApiUrl,Connection,PublicKey,Keypair} from "@solana/web3.js";
-import { encodeURL, createQR,findReference, FindReferenceError, validateTransfer } from "@solana/pay";
+import { Connection,PublicKey,Keypair} from "@solana/web3.js";
+import { encodeURL, findReference, FindReferenceError, validateTransfer } from "@solana/pay";
 import BigNumber from "bignumber.js";
 import { useState } from "react";
 import QRCode from "react-qr-code";
-require('dotenv').config();
+import * as dotenv from "dotenv";
+dotenv.config();
 
 
 // Configure your RPC connection
