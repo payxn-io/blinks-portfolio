@@ -9,6 +9,16 @@ git clone https://github.com/payxn-io/sol-pay-app.git
 npm run dev
 ```
 
+### Payxn Solana Pay: Example URLs
+Sending 0.69 SOL:
+```bash
+solana:Ckg9D8BZmeze7Ka19fYJG3pyFGiAgiYSnQGToNbdRz8r?amount=0.69&label=Amazon&message=Thanks%20for%20shopping%20at%20Amazon&memo=ID321
+```
+Sending 4.20 USDC:
+```bash
+solana:Ckg9D8BZmeze7Ka19fYJG3pyFGiAgiYSnQGToNbdRz8r?amount=4.20&spl-token=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+```
+
 ### Parameters
 - [x] Recipient: This is the public key of the person you're sending SOL to. For SPL token transfers, specify the token type in the spl-token field, so the wallet can determine the correct account for the transfer.<br><br>
 
@@ -25,3 +35,4 @@ npm run dev
 - [x] Memo: A note that accompanies the payment transaction, but it shouldn’t contain any private or sensitive information since it’s recorded on-chain.
 
 These fields ensure you have full control over your transaction, facilitating smooth interaction between your wallet and the recipient. For security, apps should only consider the transaction complete after it’s confirmed on-chain.
+
