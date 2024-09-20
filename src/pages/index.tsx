@@ -2,6 +2,7 @@
 import {Cluster,clusterApiUrl,Connection,PublicKey,Keypair} from "@solana/web3.js";
 import { encodeURL, createQR,findReference, FindReferenceError, validateTransfer } from "@solana/pay";
 import BigNumber from "bignumber.js";
+import { useState } from "react";
 
 export default function Home() {
   return (
