@@ -14,6 +14,20 @@ console.log('Connecting to the Solana network\n');
 const connection = new Connection(RPC, 'confirmed');
 
 export default function Home() {
+  // URL Variables
+  const [address, setAddress] = useState("");
+  const [recipient, setRecipient] = useState(
+    new PublicKey("Ckg9D8BZmeze7Ka19fYJG3pyFGiAgiYSnQGToNbdRz8r"));
+  const [amount, setAmount] = useState(new BigNumber(1));
+  const [message, setMessage] = useState("Payxn Demo Order");
+  const reference = new Keypair().publicKey;
+  const label = "Payxn Super Store";
+  const memo = "Payxn#1337";
+
+  // for the QR code
+  const [qrCodeValue, setQrCodeValue] = useState('');
+  const [paymentStatus, setPaymentStatus] = useState('');
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="mb-6 text-3xl font-bold text-indigo-700">
