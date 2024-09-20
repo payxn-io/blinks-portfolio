@@ -12,7 +12,7 @@ npm run dev
 ### Payxn Solana Pay: Example URLs
 Sending 0.69 SOL:
 ```bash
-solana:Ckg9D8BZmeze7Ka19fYJG3pyFGiAgiYSnQGToNbdRz8r?amount=0.69&label=Amazon&message=Thanks%20for%20shopping%20at%20Amazon&memo=ID321
+solana:Ckg9D8BZmeze7Ka19fYJG3pyFGiAgiYSnQGToNbdRz8r?amount=0.69&label=Shopee&message=Thanks%20for%20shopping%20at%20Shopee&memo=ID321
 ```
 Sending 4.20 USDC:
 ```bash
