@@ -45,12 +45,31 @@ export default function Home() {
   }
 
   async function checkPayment() {
-    // Update payment status
-    setPaymentStatus('pending');
 
 		// Search for transaction
+    console.log('Searching for the payment\n');
+    let signatureInfo;
+
+    const {signature} = await new Promise((resolve, reject) => {
+      
+        const interval = setInterval(async () => {
+            console.count('Checking for transaction...'+reference);
+            try {
+                signatureInfo = await findReference(connection, reference, { finality: 'confirmed' });
+                console.log('\n Signature: ', signatureInfo.signature,signatureInfo);
+                clearInterval(interval);
+                resolve(signatureInfo);
+            } catch (error: any) {
+                if (!(error instanceof FindReferenceError)) {
+                    console.error(error);
+                    clearInterval(interval);
+                    reject(error);
+                }
+            }
+        }, 250);
+    });
 	
-		// Validate transaction
+
 }
 
 
