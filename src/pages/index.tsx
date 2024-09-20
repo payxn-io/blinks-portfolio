@@ -28,6 +28,22 @@ export default function Home() {
   const [qrCodeValue, setQrCodeValue] = useState('');
   const [paymentStatus, setPaymentStatus] = useState('');
 
+  async function createPayment() {
+    console.log("Creating a payment URL \n");
+    setRecipient(new PublicKey(address));
+    const url = encodeURL({
+      recipient,
+      amount,
+      reference,
+      label,
+      message,
+      memo,
+    });
+
+    setQrCodeValue(url.toString()); // convert URL object to string
+    checkPayment();
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="mb-6 text-3xl font-bold text-indigo-700">
