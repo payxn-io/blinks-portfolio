@@ -20,7 +20,7 @@ solana:Ckg9D8BZmeze7Ka19fYJG3pyFGiAgiYSnQGToNbdRz8r?amount=4.20&spl-token=EPjFWd
 ```
 
 ### Parameters
-- [x] Recipient: This is the public key of the person you're sending SOL to. For SPL token transfers, specify the token type in the spl-token field, so the wallet can determine the correct account for the transfer.<br><br>
+- [x] Recipient: This is the public key of the person you're sending SOL to. For SPL token transfers, specify the token type in the spl-token field, so the wallet can determine the correct account for the transfer.
 
 - [x] Amount: The number of SOL or tokens you're sending. If it's less than 1, make sure to include a 0 before the decimal. If the amount is missing, the wallet will prompt you to enter it. When transferring SOL, this value reflects SOL, not lamports.
 
