@@ -1,11 +1,22 @@
 // Imports
+
+
 import { Connection,PublicKey,Keypair} from "@solana/web3.js";
 import { encodeURL, findReference, FindReferenceError, validateTransfer } from "@solana/pay";
 import BigNumber from "bignumber.js";
 import { useState } from "react";
 import QRCode from "react-qr-code";
 import * as dotenv from "dotenv";
+
+import { useRouter } from 'next/router'; // added by Chuck
+
+
+
+  
+  
+
 dotenv.config();
+
 
 
 // Configure your RPC connection
@@ -20,6 +31,9 @@ console.log('Connecting to the Solana network\n');
 const connection = new Connection(RPC, 'confirmed');
 
 export default function Home() {
+
+  const router = useRouter();  // added by Chuck
+
   // URL Variables
   const [address, setAddress] = useState("");
   const [recipient, setRecipient] = useState(
@@ -95,6 +109,11 @@ export default function Home() {
   }
   }
 
+  // below added by Chuck
+  const goToSwapPage = () => {
+    router.push('/swap');
+  };
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -137,6 +156,13 @@ export default function Home() {
         </div>}
       </div>
       </div>
+
+      <button 
+        className="mt-4 px-4 py-2 font-bold text-white bg-green-500 rounded hover:bg-green-700"
+        onClick={goToSwapPage}
+      >
+        Swap SOL-USDT
+      </button>
 
     </div>
   );
