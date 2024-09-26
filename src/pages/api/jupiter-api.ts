@@ -62,20 +62,20 @@ export const createJupiterApi = () => {
     return await jupiterApi.swapPost(request);
   };
 
-  const getTokenList = async (): Promise<JupiterTokenMetadata[]> => {
-    try {
-      const response = await fetch('https://token.jup.ag/all');
+  // const getTokenList = async (): Promise<JupiterTokenMetadata[]> => {
+  //   try {
+  //     const response = await fetch('https://token.jup.ag/all');
 
-      if (!response.ok) {
-        return [];
-      }
+  //     if (!response.ok) {
+  //       return [];
+  //     }
 
-      return await response.json();
-    } catch (e) {
-      console.error(e);
-      return [];
-    }
-  };
+  //     return await response.json();
+  //   } catch (e) {
+  //     console.error(e);
+  //     return [];
+  //   }
+  // };
 
   const getStrictList = async (): Promise<JupiterTokenMetadata[]> => {
     try {

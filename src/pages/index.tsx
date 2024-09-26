@@ -1,169 +1,125 @@
-// Imports
-
-
-import { Connection,PublicKey,Keypair} from "@solana/web3.js";
-import { encodeURL, findReference, FindReferenceError, validateTransfer } from "@solana/pay";
-import BigNumber from "bignumber.js";
-import { useState } from "react";
-import QRCode from "react-qr-code";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from 'react';
 import * as dotenv from "dotenv";
-
-import { useRouter } from 'next/router'; // added by Chuck
-
-
-
-  
-  
 
 dotenv.config();
 
-
-
-// Configure your RPC connection
-// const RPC="https://rpc.helius.xyz/?api-key=".process.env.HELIUS_RPC!
-
-const RPC="https://rpc.helius.xyz/?api-key=82d90b23-dc14-48a7-ac17-3c95ace2130b"!
-//const RPC = `https://rpc.helius.xyz/?api-key=${process.env.HELIUS_RPC}`;
-console.log(RPC); // This will output the complete RPC URL
-
-// Create a Solana Connection object with your RPC URL
-console.log('Connecting to the Solana network\n');
-const connection = new Connection(RPC, 'confirmed');
-
 export default function Home() {
+  const [solUsdtAmount, setSolUsdtAmount] = useState(10);
+  const [usdtSolAmount, setUsdtSolAmount] = useState(50);
+  const [solBonkAmount, setSolBonkAmount] = useState(100);
 
-  const router = useRouter();  // added by Chuck
-
-  // URL Variables
-  const [address, setAddress] = useState("");
-  const [recipient, setRecipient] = useState(
-    new PublicKey("Ckg9D8BZmeze7Ka19fYJG3pyFGiAgiYSnQGToNbdRz8r"));
-  const [amount, setAmount] = useState(new BigNumber(1));
-  const [message] = useState("Payxn Demo Order");
-  const reference = new Keypair().publicKey;
-  const label = "Payxn Super Store";
-  const memo = "Payxn#1337";
-
-  // for the QR code
-  const [qrCodeValue, setQrCodeValue] = useState('');
-  const [paymentStatus, setPaymentStatus] = useState('');
-
-  async function createPayment() {
-    console.log("Creating a payment URL \n");
-    setRecipient(new PublicKey(address));
-    const url = encodeURL({
-      recipient,
-      amount,
-      reference,
-      label,
-      message,
-      memo,
-    });
-
-    setQrCodeValue(url.toString()); // convert URL object to string
-    checkPayment();
-  }
-
-  async function checkPayment() {
-
-		// Search for transaction
-    console.log('Searching for the payment\n');
-    let signatureInfo;
-
-    // const {signature} = await new Promise((resolve, reject) => {
-    const { signature } = await new Promise<{ signature: string }>((resolve, reject) => {  
-      
-        const interval = setInterval(async () => {
-            console.count('Checking for transaction...'+reference);
-            try {
-                signatureInfo = await findReference(connection, reference, { finality: 'confirmed' });
-                console.log('\n Signature: ', signatureInfo.signature,signatureInfo);
-                clearInterval(interval);
-                resolve(signatureInfo);
-            } catch (error: unknown) {
-                if (!(error instanceof FindReferenceError)) {
-                    console.error(error);
-                    clearInterval(interval);
-                    reject(error);
-                }
-            }
-        }, 250);
-    });
-
-    // Update payment status
-    setPaymentStatus('confirmed');
-
-    //validate transaction
-    console.log('Validating the payment\n');
-    try {
-      await validateTransfer(connection, signature, { recipient: recipient, amount });
-
-      // Update payment status
-      setPaymentStatus('validated');
-      console.log('Payment validated');
-      return true;
-      
-  } catch (error) {
-      console.error('Payment failed', error);
-      return false;
-  }
-  }
-
-  // below added by Chuck
-  const goToSwapPage = () => {
-    router.push('/swap');
+  const generateSwapLink = (tokenPair, amount) => {
+    const localhost = 'http://localhost:3003'; // This will be replaced with your deployment URL later.
+    const url = `${localhost}/api/jupiter/swap/${tokenPair}/${amount}`;
+    return `https://dial.to/developer?url=${encodeURIComponent(url)}&cluster=mainnet`;
   };
 
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="mb-6 text-3xl font-bold text-indigo-700">
-        Payxn Solana Pay Demo
-      </h1>
-      <div className="w-full max-w-md p-6 mx-auto bg-white rounded-xl shadow-md">
-        <div className="mb-4">
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            Address:
-          </label>
-          <input
-            type="text"
-            onChange={(e) => setAddress(e.target.value)}
-            className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            Amount:
-          </label>
-          <input
-            type="number"
-            onChange={(e) => setAmount(new BigNumber(e.target.value))}
-            className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="flex justify-center items-center">
-        <button 
-          className="px-4 py-2 font-bold text-white bg-indigo-500 rounded hover:bg-blue-700" 
-          onClick={createPayment}
-        >
-          Create QR Code
-        </button>
-        </div>
-        
-        <div>
-        {paymentStatus === 'validated' ? <p className="mt-4 text-green-500 text-center">Payment Validated</p> : <div className="flex justify-center mt-4">
-          {qrCodeValue && <QRCode value={qrCodeValue} />}
-        </div>}
-      </div>
+    <div style={{ background: 'linear-gradient(90deg, #00FFA3, #DC1FFF, #9945FF)', minHeight: '100vh' }}>
+      <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 className="my-0 me-md-auto fw-normal d-flex align-items-center">
+          <img src="/favicon.ico" alt="Logo" style={{ width: '60px', height: '60px', marginRight: '8px' }} />
+          Payxn.io
+        </h5>
+        <nav className="my-2 my-md-0 me-md-3">
+          <a className="p-2 text-dark" href="#">Features</a>
+          <a className="p-2 text-dark" href="#">Enterprise</a>
+          <a className="p-2 text-dark" href="#">Support</a>
+          <a className="p-2 text-dark" href="#">Pricing</a>
+        </nav>
+        <a className="btn btn-outline-primary" href="#">Sign up</a>
       </div>
 
-      <button 
-        className="mt-4 px-4 py-2 font-bold text-white bg-green-500 rounded hover:bg-green-700"
-        onClick={goToSwapPage}
-      >
-        Swap SOL-USDT
-      </button>
+      <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 className="display-4">Solana Blinks / Portfolio Rebalancer</h1>
+        <p className="lead">
+          Quickly send/receive Blink SOL payments and rebalance your Solana wallet portfolio
+        </p>
+      </div>
 
+      <div className="container py-5">
+        <div className="row">
+          <div className="col-lg-4">
+            <div className="card mb-4 box-shadow">
+              <div className="card-header">
+                <h4 className="my-0 font-weight-normal">SOL-USDT Swap</h4>
+              </div>
+              <div className="card-body">
+                <input
+                  type="number"
+                  className="form-control mb-3"
+                  placeholder="Enter amount in USD"
+                  value={solUsdtAmount}
+                  onChange={(e) => setSolUsdtAmount(e.target.value)}
+                />
+                <ul className="list-unstyled mt-3 mb-4">
+                  <li>Fast processing</li>
+                  <li>Low fees</li>
+                </ul>
+                <a
+                  href={generateSwapLink('SOL-USDT', solUsdtAmount)}
+                  className="btn btn-lg btn-block btn-primary"
+                >
+                  Swap Now
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-4">
+            <div className="card mb-4 box-shadow">
+              <div className="card-header">
+                <h4 className="my-0 font-weight-normal">USDT-SOL Swap</h4>
+              </div>
+              <div className="card-body">
+                <input
+                  type="number"
+                  className="form-control mb-3"
+                  placeholder="Enter amount in USD"
+                  value={usdtSolAmount}
+                  onChange={(e) => setUsdtSolAmount(e.target.value)}
+                />
+                <ul className="list-unstyled mt-3 mb-4">
+                  <li>Fast processing</li>
+                  <li>Low fees</li>
+                </ul>
+                <a
+                  href={generateSwapLink('USDT-SOL', usdtSolAmount)}
+                  className="btn btn-lg btn-block btn-primary"
+                >
+                  Swap Now
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-4">
+            <div className="card mb-4 box-shadow">
+              <div className="card-header">
+                <h4 className="my-0 font-weight-normal">SOL-BONK Swap</h4>
+              </div>
+              <div className="card-body">
+                <input
+                  type="number"
+                  className="form-control mb-3"
+                  placeholder="Enter amount in USD"
+                  value={solBonkAmount}
+                  onChange={(e) => setSolBonkAmount(e.target.value)}
+                />
+                <ul className="list-unstyled mt-3 mb-4">
+                  <li>Fast processing</li>
+                  <li>Low fees</li>
+                </ul>
+                <a
+                  href={generateSwapLink('SOL-BONK', solBonkAmount)}
+                  className="btn btn-lg btn-block btn-primary"
+                >
+                  Swap Now
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
