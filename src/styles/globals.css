@@ -1,3 +1,18 @@
+/* body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*/ 
+/* code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}  */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -24,4 +39,43 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+} 
+
+.wallet-adapter-button {
+  background-color: #007bff; /* Change to your desired color */
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px 20px;
 }
+
+.wallet-adapter-button:hover {
+  background-color: #0056b3; /* Hover effect */
+}
+
+.wallet-adapter-button-trigger {
+  background-color: #28a745;
+  color: white;
+}
+
+/* In styles.css or global.css */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  width: 500px;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
